@@ -7,46 +7,100 @@ import { commonWords } from "./constants";
 // - The app starts by choosing a random word
 // *underscores appear
 // *number of underscores = num of letters in random word
-// *6 stars = full life
+// *8 stars = full life
 // *until num of guess is up
 
 const threeLetterWords = commonWords.filter(function (word) {
-  word.length >= 3;
-
-  for (var i = 0; i < word.length; i++) {
-    if (word[i] === " ") {
-      wordDisplay = " ";
-    } else {
-      return (wordDisplay = "_");
-    }
-  }
-  //   console.log(threeLetterWords);
+  return word.length >= 3;
 });
+
+let roundedNumber = Math.round(getRandomArbitrary(0, 76));
+let randomWord = threeLetterWords[roundedNumber];
+let test = dash(randomWord);
 
 function getRandomArbitrary(min, max) {
   return Math.random() * (max - min) + min;
 }
-let roundedNumber = Math.round(getRandomArbitrary(0, 76));
 
-let wordDisplay = (document.querySelector("#word-display").innerHTML =
-  threeLetterWords[roundedNumber]);
+function dash(str) {
+  let hiddenWord = "";
+  for (let i = 0; i < str.length; i++) {
+    hiddenWord += " _ ";
+  }
+  return hiddenWord;
+}
+
+// console.log(test);
+// let wordDisplay = (document.querySelector("#word-display").innerHTML =
+//   threeLetterWords[roundedNumber]);
 
 // - The player can guess a single letter at a time
 // *By clicking a button
+const btn = document.querySelector(".alphabtn");
+
+let clickCount = 0;
+
+function handleBtnClick(e) {
+  let clickLetter = e.target.textContent;
+  // console.log(e.target.textContent);
+  // console.log(btn);
+  if (clickCount >= 8) {
+    // btn.setAttribute("disabled", true);
+    // return;
+    alert("You Lose");
+    location.reload();
+  }
+  clickCount++;
+  // console.log(clickCount);
+  // console.log(randomWord.includes(clickLetter));
+}
+
+// let lifeCountDown = loseLife;
+// let countDown = 8;
+
+// if (clickCount) {
+//   countDown = countDown;
+// } else {
+//   countDown--;
+//   console.log(lifeCountDown);
+// }
+
+// function loseLife(str) {
+//   let countDown = countDown;
+//   for (let i = 8; i >= 0; i--) {
+//     countdown--;
+//   }
+//   return countDown;
+
+//   console.log(lifeCountDown);
+// }
+
+//this makes my buttons
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+let alphaArray = alphabet.split("");
+let alphaHtml = alphaArray
+  .map(function (alpha) {
+    return `<button class="alphabtn">${alpha}</button>`;
+  })
+  .join("");
+
+// console.log(alphaHtml);
+
+document
+  .querySelector("#button-list")
+  .addEventListener("click", handleBtnClick);
+
+document.querySelector("#button-list").innerHTML = alphaHtml;
+document.querySelector("#dashes").innerHTML = test;
 // *If the letter clicked is in the word update underscore
 // *OR*
 // *If letter they click is NOT in the word lose a star
 // *They enter again
-//*Cannot choose same letter twice
+// *Cannot choose same letter twice
 
 // - The player has a fixed number of turns
 // *6 wrong guesses game ends
 // *alert, you lose
-// *reset game ... exclude previous word
-
-// *in which to guess all of the letters in the word
-// *If word is filled out, game ends
-// *alert, you win.
-// *rest game ... exclude previous word
+// *reset game ... exclude previous word?
 
 // - The app should indicate when the player has won or lost
