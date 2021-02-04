@@ -49,3 +49,7 @@ body {
   text-align: center;
   color: rgb(61, 120, 230);
 }
+
+#count {
+  margin-left: 10px;
+}

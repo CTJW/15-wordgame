@@ -44,10 +44,10 @@ function handleBtnClick(e) {
   let clickLetter = e.target.textContent;
   // console.log(e.target.textContent);
   // console.log(btn);
-  if (clickCount >= 8) {
+  if (clickCount >= 7) {
     // btn.setAttribute("disabled", true);
     // return;
-    alert("You Lose");
+    alert("You Lose!");
     location.reload();
   }
   clickCount++;
@@ -55,15 +55,19 @@ function handleBtnClick(e) {
   // console.log(randomWord.includes(clickLetter));
 }
 
-// let lifeCountDown = loseLife;
-// let countDown = 8;
+let lifeCountDown = loseLife;
+let countDown = 8;
+const tracker = document.querySelector("#count");
+tracker.innerHTML = countDown;
 
-// if (clickCount) {
-//   countDown = countDown;
-// } else {
-//   countDown--;
-//   console.log(lifeCountDown);
-// }
+function loseLife(num) {
+  if (clickCount) {
+    countDown = 8;
+  } else {
+    countDown--;
+    // console.log(lifeCountDown);
+  }
+}
 
 // function loseLife(str) {
 //   let countDown = countDown;
